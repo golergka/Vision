@@ -17,16 +17,16 @@ interface IVisionListener {
 
 public class Vision : MonoBehaviour {
 
-	// public List<Visible> VisiblesInSight() {
+	public List<Visible> VisiblesInSight() {
 
-	// 	List<Visible> result = new List<Visible>();
-	// 	foreach(Visible v in visiblesInSight)
-	// 		if (v != null)
-	// 			result.Add(v);
+		List<Visible> result = new List<Visible>();
+		foreach(Visible v in visiblesInSight)
+			if (v != null)
+				result.Add(v);
 
-	// 	return result;
+		return result;
 
-	// }
+	}
 
 	// Vision distance. We keep square distnace to optimize length checks
 	private float sqrVisionDistance = 100f;
