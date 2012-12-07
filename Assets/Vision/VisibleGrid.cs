@@ -8,17 +8,28 @@ using System.Collections.Generic;
 // If you have a lot of objects dispersed along Y-axis, you should rewrite it.
 public class VisibleGrid : MonoBehaviour {	
 
-	#region Grid setup
+#region Singleton
+
+	private static VisibleGrid _instance = null;
+	public static VisibleGrid instance {
+		get {
+			if (_instance == null)
+				_instance = (VisibleGrid) FindObjectOfType(typeof(VisibleGrid));
+			return _instance;
+		}
+	}
+
+#endregion
+
+#region Grid setup
 
 	// That's only public for the sake of the editor. Don't mess with it in runtime.
 	public float gridStep = 10f;
 	public int gridSize = 10;
 	public List<Visible>[,] grid;
-	public static VisibleGrid instance;
 
 	void Awake() {
 
-		instance = this;
 		grid = new List<Visible> [gridSize, gridSize];
 		for(int x=0; x<gridSize; x++)
 			for(int y=0; y<gridSize; y++)
@@ -26,9 +37,9 @@ public class VisibleGrid : MonoBehaviour {
 
 	}
 
-	#endregion
+#endregion
 
-	#region Public
+#region Public
 
 	private bool CheckCoordinates(int x, int y) {
 
@@ -77,7 +88,7 @@ public class VisibleGrid : MonoBehaviour {
 
 	}
 
-	#endregion
+#endregion
 
 	void OnDrawGizmosSelected() {
 

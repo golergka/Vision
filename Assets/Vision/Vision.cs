@@ -30,15 +30,19 @@ public class Vision : MonoBehaviour {
 
 	// Vision distance. We keep square distnace to optimize length checks
 	private float sqrVisionDistance = 100f;
+	private float _visionDistance = 10f;
 	public float visionDistance {
 
-		get { return Mathf.Sqrt(sqrVisionDistance); }
+		get { return _visionDistance; }
 		set {
-			if ( value >= VisibleGrid.instance.gridStep )
+
+			if ( value > VisibleGrid.instance.gridStep )
 				Debug.LogError("Proposed visionDistance of " + visionDistance +
 					" is bigger than a gridStep of " + VisibleGrid.instance.gridStep.ToString() );
-			else
+			else {
+				_visionDistance = value;
 				sqrVisionDistance = value*value;
+			}
 		}
 
 	}
@@ -261,6 +265,9 @@ public class Vision : MonoBehaviour {
 	}
 
 	void OnDrawGizmosSelected() {
+
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(transform.position, visionDistance);
 
 		Gizmos.color = Color.red;
 		foreach(Visible visible in invisiblesInSight)
